@@ -81,13 +81,19 @@ h1 {
     font-size: 33px;
 }
 
+.deck .card.bad {
+    cursor: default;
+    background: #FF3D00;
+    font-size: 33px;
+}
+
 /*
  * Styles for the Score Panel
  */
 
 .score-panel {
     text-align: left;
-    width: 345px;
+    width: 450px;
     margin-bottom: 10px;
 }
 
@@ -106,4 +112,24 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+/* Error Styles */
+a.close:hover {
+    cursor: pointer;
+}
+
+a.close {
+    font-size: 24px;
+}
+
+.error-message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #FF3D00;
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
 }
