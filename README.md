@@ -1,20 +1,23 @@
-# Memory Game Project
+# Concentration Memory Game
 
 ## Table of Contents
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+* [Game Overview](#Game_Overview)
+* [How to Play](#How_to_Play)
+* [Code Information](#Code_Information)
+* [Dependencies](#Dependencies)
 
-## Instructions
+## Game Overview
+To win the game match all the cards successfully. Hit the reset icon to start a new game.
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+## How to Play
+1. Click one card to reveal the icon on the other side.
+2. Click another card to see if that card's icon matches the first card.
+3. Once all cards are matched a winner page is displayed with the game stats.
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Code Information
+Built with vanilla JavaScript, see the code in `js/app.js`.
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+## Dependencies
+1. Font Awesome
+2. JavaScript enabled web browser
