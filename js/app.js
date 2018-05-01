@@ -2,18 +2,8 @@
 const icons = ['fa-anchor','fa-bicycle','fa-diamond','fa-leaf','fa-bomb','fa-bolt','fa-paper-plane-o','fa-cube'];
 let cards = [];
 
-//populate cards array, I could type out the array but I let JavaScript do it
-for (let x = 0; x <= 1; x++) {
- icons.forEach(c => {
-   cards.push({
-     icon: c,
-     isMatching: false,
-     isSolved: false
-   })
- })
-}
-
 // GLobal DOM selectors, document fragmet, and variables
+const playAgainButton = document.querySelector('.play-again');
 const starsDiv = document.querySelector('.stars');
 const movesDiv = document.querySelector('.moves');
 const resetButton = document.querySelector('.restart')
@@ -44,12 +34,6 @@ const handleWinner = () => {
   document.querySelector('.final-stars').textContent = state.stars;
   document.querySelector('.game-panel').classList.toggle('hidden');
   document.querySelector('.winner-message').classList.toggle('hidden');
-  document.querySelector('.play-again').addEventListener('click', function() {
-    deck.innerHTML = '';
-    document.querySelector('.game-panel').classList.toggle('hidden');
-    document.querySelector('.winner-message').classList.toggle('hidden');
-    startGame();
-  })
 }
 
 //update stars in DOM and state
@@ -67,10 +51,7 @@ const updateStars = (num) => {
 
 //show errors to user
 const displayErrors = (err) => {
-  const currentErrors = document.querySelector('.error-message');
-  if (currentErrors) {
-    closeErrors();
-  }
+  closeErrors();
   const errorMessage = `
   <div class="error-message">
     ${err}
@@ -89,7 +70,7 @@ const displayErrors = (err) => {
 // removes the error message
 const closeErrors = () => {
   const errorDiv = document.querySelector('.error-div');
-  errorDiv.remove();
+  errorDiv ? errorDiv.remove() : null;
 }
 
 //when a card is click
@@ -125,6 +106,9 @@ const handleClick = (e,i) => {
 const flipCard = (e,i) => {
   cards[i].isMatching = true;
   e.target.className = 'card open show';
+  setTimeout(function(){
+		e.target.firstChild.classList.toggle('hidden')
+	}, 250);
   state.firstCard = e;
   state.firstIndex = i;
 }
@@ -154,15 +138,23 @@ const handleMatch = (e,i,match) => {
     // show bad match to user
     e.target.className = 'card bad';
     state.firstCard.target.className = 'card bad';
+    setTimeout(function(){
+        e.target.firstChild.classList.toggle('hidden');
+	  }, 250)
     // wait 1 second for animcations and then hide the cards again
     setTimeout(function(){
-      e.target.className = 'card';
-      state.firstCard.target.className = 'card';
+      e.target.className = 'card close';
+      state.firstCard.target.className = 'card close';
+      e.target.firstChild.classList.toggle('hidden');
+      state.firstCard.target.firstChild.classList.toggle('hidden');
     }, 1000);
   } else {
     // show the match to the user
     e.target.className = 'card match';
     state.firstCard.target.className = 'card match';
+    setTimeout(function(){
+        e.target.firstChild.classList.toggle('hidden');
+	  }, 250)
     // set the cards to solved in the cards object
     cards[i].isSolved = true;
     cards[state.firstIndex].isSolved = true;
@@ -179,7 +171,7 @@ const handleMatch = (e,i,match) => {
     // update stars when moves reach 11 and 21, default is 3 stars on DOM load
     state.moves === 21 ? updateStars(1) : state.moves === 11 ? updateStars(2) : null;
     //checks if we have matched 8 cards in a game
-    if (state.solutions === 1) {
+    if (state.solutions === 8) {
       handleWinner();
     }
     // let the user click on cards again
@@ -189,16 +181,27 @@ const handleMatch = (e,i,match) => {
 
 // initializes the game
 const startGame = () => {
+  // empty cards array then populate it
+  cards = [];
+  for (let x = 0; x <= 1; x++) {
+   icons.forEach(c => {
+     cards.push({
+       icon: c,
+       isMatching: false,
+       isSolved: false
+     })
+   })
+  }
+
   // setup initial state
   state = {
     isMatching: false,
     firstCard: {},
     firstIndex: null,
     noClicks: false,
-    solutions: 0,
+    solutions: 7,
     moves: 0,
     stars: 3,
-    errorMessage: ''
   }
   // update DOM
   movesDiv.textContent = state.moves;
@@ -223,17 +226,26 @@ const startGame = () => {
   setTimeout(function() {
     for (let i = 0; i <= 15; i++) {
       deckList[0].childNodes[i].className = 'card';
+      deckList[0].childNodes[i].firstChild.classList.toggle('hidden');
     }
   }, 1250)
 
-  // setup event listener for reset game button
-  resetButton.addEventListener('click', () => {
-    deck.innerHTML = '';
-    startGame();
-  })
 }
 
 // on DOM ready start the game
 document.addEventListener("DOMContentLoaded", function(event) {
   startGame();
+  // setup event listener for reset game button
+  resetButton.addEventListener('click', () => {
+    deck.innerHTML = '';
+    closeErrors();
+    startGame();
+  })
+  // setup event listener for play again winner button
+  playAgainButton.addEventListener('click', function() {
+    deck.innerHTML = '';
+    document.querySelector('.game-panel').classList.toggle('hidden');
+    document.querySelector('.winner-message').classList.toggle('hidden');
+    startGame();
+  })
 });
