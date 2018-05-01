@@ -44,6 +44,37 @@ section.game-panel {
   display: none !important;
 }
 
+
+/* Mobile Breakpoints for Tablet */
+@media screen and (max-width:800px) {
+  .container {
+    width: 100%;
+  }
+  .deck {
+    max-width: 600px;
+    min-height: 580px !important;
+  }
+  .deck .card {
+    height: 110px !important;
+    width: 110px !important;
+  }
+}
+
+/* Mobile Breakpoints for Phone */
+@media screen and (max-width:600px) {
+  .container {
+    width: 100%;
+  }
+  .deck {
+    max-width: 410px;
+    min-height: 380px !important;
+  }
+  .deck .card {
+    height: 70px !important;
+    width: 70px !important;
+  }
+}
+
 /*
  * Styles for the deck of cards
  */
@@ -178,7 +209,7 @@ section.game-panel {
     width: 450px;
     margin-bottom: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .stars {
