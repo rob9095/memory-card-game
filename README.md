@@ -1,12 +1,5 @@
 # Concentration Memory Game
 
-## Table of Contents
-
-* [Game Overview](#Game_Overview)
-* [How to Play](#How_to_Play)
-* [Code Information](#Code_Information)
-* [Dependencies](#Dependencies)
-
 ## Game Overview
 To win the game match all the cards successfully. Hit the reset icon to start a new game.
 
