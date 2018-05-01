@@ -181,14 +181,14 @@ section.game-panel {
     justify-content: space-between;
 }
 
-.score-panel .stars {
+.stars {
     margin: 0;
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
 }
 
-.score-panel .stars li {
+.stars li {
     list-style: none;
     display: inline-block;
 }
@@ -251,14 +251,15 @@ section.game-panel {
 .winner-message button {
 	background: #00b9a9;
 	padding: 16px;
-  margin-top: 20px;
+  margin-top: 25px;
 	color: #fff;
 	text-transform: uppercase;
 	border: 0px solid;
 	border-radius: 5px;
 	font-weight: bold;
 	letter-spacing: 1px;
-	box-shadow: 6px 7px 20px 0 rgba(46, 61, 73, 0.5)
+	box-shadow: 6px 7px 20px 0 rgba(46, 61, 73, 0.5);
+  font-family: 'Coda', cursive;
 }
 
 .winner-message button:hover {
@@ -322,6 +323,11 @@ a.close:hover {
 
 a.close {
     font-size: 24px;
+    margin-left: 20px;
+}
+
+.error-div {
+    margin-bottom: 10px;
 }
 
 .error-message {

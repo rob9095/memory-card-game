@@ -48,7 +48,7 @@ function shuffle(array) {
 //display the winner message
 const handleWinner = (time) => {
   document.querySelector('.final-moves').textContent = state.moves;
-  document.querySelector('.final-stars').textContent = state.stars;
+  document.querySelector('.final-stars').firstChild.innerHTML = starsDiv.innerHTML;
   document.querySelector('.final-time').textContent = time;
   document.querySelector('.game-panel').classList.toggle('hidden');
   document.querySelector('.winner-message').classList.toggle('hidden');
@@ -80,7 +80,7 @@ const displayErrors = (err) => {
   const errorDiv = document.createElement('div');
   errorDiv.className = 'error-div';
   errorDiv.innerHTML = errorMessage;
-  scorePanel.appendChild(errorDiv);
+  scorePanel.parentNode.insertBefore(errorDiv, scorePanel.nextSibling);
   const closeButton = document.querySelector('.close');
   closeButton.addEventListener('click', closeErrors);
 }
@@ -95,12 +95,12 @@ const closeErrors = () => {
 const handleClick = (e,i) => {
   // exit if user tries to click on a card that is already solved
   if (cards[i].isSolved === true) {
-    displayErrors('It looks like you found this match already, try clicking a new card');
+    displayErrors('You found this match already, try clicking a new card');
     return;
   }
   // exit if matching is occuring(2 cards have been selected), user can only click two cards at a time
   if (state.noClicks) {
-    displayErrors('Be Patient young grasshopper, you can only try to match two cards at once');
+    displayErrors('Be patient young grasshopper, you can only match two cards at once');
     return;
   }
   // if we are not matching lets just flip the card
@@ -190,6 +190,7 @@ const handleMatch = (e,i,match) => {
     state.moves === 21 ? updateStars(1) : state.moves === 11 ? updateStars(2) : null;
     //checks if we have matched 8 cards in a game
     if (state.solutions === 8) {
+      window.clearInterval(globalTimer);
       handleWinner(timerDiv.textContent);
     }
     // let the user click on cards again
