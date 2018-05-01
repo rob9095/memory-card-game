@@ -177,6 +177,8 @@ section.game-panel {
     text-align: left;
     width: 450px;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .score-panel .stars {
@@ -208,6 +210,42 @@ section.game-panel {
   width: 660px;
   min-height: 680px;
   justify-content: center;
+}
+
+.winner-message .cheer {
+  padding: 0px 20px 20px;
+}
+
+.winner-message .stats-title {
+  font-weight: bold;
+}
+
+.winner-stats {
+    display: flex;
+    min-width: 200px;
+    justify-content: center;
+}
+
+.stats-left {
+    border-left: 2px solid;
+    border-top: 2px solid;
+}
+
+.stats-left div {
+    border-bottom: 2px solid;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.stats-right {
+    border-top: 2px solid;
+    border-right: 2px solid;
+}
+
+.stats-right div {
+    border-bottom: 2px solid;
+    border-left: 2px solid;
+    padding: 10px;
 }
 
 .winner-message button {

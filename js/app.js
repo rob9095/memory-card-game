@@ -3,6 +3,8 @@ const icons = ['fa-anchor','fa-bicycle','fa-diamond','fa-leaf','fa-bomb','fa-bol
 let cards = [];
 
 // GLobal DOM selectors, document fragmet, and variables
+let globalTimer = null;
+const timerDiv = document.querySelector('.timer');
 const playAgainButton = document.querySelector('.play-again');
 const starsDiv = document.querySelector('.stars');
 const movesDiv = document.querySelector('.moves');
@@ -12,6 +14,21 @@ const deck = document.querySelector('.deck');
 const deckList = document.querySelectorAll('.deck');
 const fragment = document.createDocumentFragment();
 let state = {};
+
+//timer
+const startTimer = () => {
+  globalTimer = setInterval(function () {
+    state.time = state.time + 1;
+    state.time === 3600 ? state = {...state, time: 0, hours: state.hours + 1} : null
+    let hours = state.hours < 10 ? `0${state.hours}`: hours;
+    let minutes = parseInt(state.time / 60);
+    let seconds = parseInt(state.time % 60);
+    hours >= 1 ? hours = `${hours}:` : hours = ''
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    seconds = seconds < 10 ? `0${seconds}` : seconds;
+    timerDiv.textContent =  `${hours}${minutes}:${seconds}`;
+  }, 1000);
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -29,9 +46,10 @@ function shuffle(array) {
 }
 
 //display the winner message
-const handleWinner = () => {
+const handleWinner = (time) => {
   document.querySelector('.final-moves').textContent = state.moves;
   document.querySelector('.final-stars').textContent = state.stars;
+  document.querySelector('.final-time').textContent = time;
   document.querySelector('.game-panel').classList.toggle('hidden');
   document.querySelector('.winner-message').classList.toggle('hidden');
 }
@@ -172,7 +190,7 @@ const handleMatch = (e,i,match) => {
     state.moves === 21 ? updateStars(1) : state.moves === 11 ? updateStars(2) : null;
     //checks if we have matched 8 cards in a game
     if (state.solutions === 8) {
-      handleWinner();
+      handleWinner(timerDiv.textContent);
     }
     // let the user click on cards again
     state.noClicks = false;
@@ -199,9 +217,11 @@ const startGame = () => {
     firstCard: {},
     firstIndex: null,
     noClicks: false,
-    solutions: 7,
+    solutions: 0,
     moves: 0,
     stars: 3,
+    time: 0,
+    hours: 0
   }
   // update DOM
   movesDiv.textContent = state.moves;
@@ -222,13 +242,15 @@ const startGame = () => {
 
   deck.appendChild(fragment);
 
-  // wait 1.25 seconds and then hide the cards
+  // wait 1.5 seconds and then hide the cards and start/clear timer
   setTimeout(function() {
     for (let i = 0; i <= 15; i++) {
-      deckList[0].childNodes[i].className = 'card';
+      deckList[0].childNodes[i].className = 'card close';
       deckList[0].childNodes[i].firstChild.classList.toggle('hidden');
     }
-  }, 1250)
+    window.clearInterval(globalTimer);
+    startTimer();
+  }, 1500)
 
 }
 
@@ -237,6 +259,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
   startGame();
   // setup event listener for reset game button
   resetButton.addEventListener('click', () => {
+    timerDiv.textContent = '00:00';
+    window.clearInterval(globalTimer);
     deck.innerHTML = '';
     closeErrors();
     startGame();
