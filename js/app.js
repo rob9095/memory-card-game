@@ -38,6 +38,33 @@ function shuffle(array) {
     return array;
 }
 
+//display the winner message
+const handleWinner = () => {
+  document.querySelector('.final-moves').textContent = state.moves;
+  document.querySelector('.final-stars').textContent = state.stars;
+  document.querySelector('.game-panel').classList.toggle('hidden');
+  document.querySelector('.winner-message').classList.toggle('hidden');
+  document.querySelector('.play-again').addEventListener('click', function() {
+    deck.innerHTML = '';
+    document.querySelector('.game-panel').classList.toggle('hidden');
+    document.querySelector('.winner-message').classList.toggle('hidden');
+    startGame();
+  })
+}
+
+//update stars in DOM and state
+const updateStars = (num) => {
+  let stars = '';
+  const starsDiv = document.querySelector('.stars');
+  starsDiv.innerHTML = '';
+  for (let i = 1; i <= num; i++) {
+    const star = '<li><i class="fa fa-star"></i></li>';
+    stars = stars + star
+  }
+  starsDiv.innerHTML = stars;
+  state.stars = num;
+}
+
 //show errors to user
 const displayErrors = (err) => {
   const currentErrors = document.querySelector('.error-message');
@@ -122,7 +149,7 @@ const checkMatch = (e,i) => {
 
 // display the match information to the user
 const handleMatch = (e,i,match) => {
-  // if match is false or we don't have a match
+  // if we didn't find a match
   if (!match) {
     // show bad match to user
     e.target.className = 'card bad';
@@ -144,14 +171,16 @@ const handleMatch = (e,i,match) => {
   }
   // wait 1 second for animations
   setTimeout(function(){
-    // for the first card reset isMatching in cards array
+    // reset isMatching in cards array for first card
     cards[state.firstIndex].isMatching = false;
-    // add to the moves counter and update the DOM with the new number
+    // add to moves counter and update DOM with the new number
     state.moves++;
     movesDiv.textContent = state.moves;
+    // update stars when moves reach 11 and 21, default is 3 stars on DOM load
+    state.moves === 21 ? updateStars(1) : state.moves === 11 ? updateStars(2) : null;
     //checks if we have matched 8 cards in a game
-    if (state.solutions === 8) {
-      console.log('you won! yay!')
+    if (state.solutions === 1) {
+      handleWinner();
     }
     // let the user click on cards again
     state.noClicks = false;
@@ -173,6 +202,7 @@ const startGame = () => {
   }
   // update DOM
   movesDiv.textContent = state.moves;
+  updateStars(3);
 
   shuffle(cards);
 
