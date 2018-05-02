@@ -6,7 +6,7 @@ let cards = [];
 let globalTimer = null;
 const timerDiv = document.querySelector('.timer');
 const playAgainButton = document.querySelector('.play-again');
-const starsDiv = document.querySelector('.stars');
+const starsDiv = document.querySelector('.score-panel .stars');
 const movesDiv = document.querySelector('.moves');
 const resetButton = document.querySelector('.restart')
 const scorePanel = document.querySelector('.score-panel');
@@ -57,7 +57,7 @@ const handleWinner = (time) => {
 //update stars in DOM and state
 const updateStars = (num) => {
   let stars = '';
-  const starsDiv = document.querySelector('.stars');
+  const starsDiv = document.querySelector('.score-panel .stars');
   starsDiv.innerHTML = '';
   for (let i = 1; i <= num; i++) {
     const star = '<li><i class="fa fa-star"></i></li>';

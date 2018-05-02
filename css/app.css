@@ -75,6 +75,26 @@ section.game-panel {
   }
 }
 
+/* Mobile Breakpoints for tiny Phone */
+@media screen and (max-width:400px) {
+  .container {
+    width: 100%;
+  }
+  .deck {
+    max-width: 270px;
+    min-height: 300px !important;
+    padding: 18px !important;
+  }
+  .deck .card {
+    height: 50px !important;
+    width: 50px !important;
+    font-size: 23px !important;
+  }
+  .score-panel {
+    width: 270px !important;
+  }
+}
+
 /*
  * Styles for the deck of cards
  */
