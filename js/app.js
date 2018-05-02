@@ -227,6 +227,7 @@ const startGame = () => {
   // update DOM
   movesDiv.textContent = state.moves;
   updateStars(3);
+  closeErrors();
 
   shuffle(cards);
 
