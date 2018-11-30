@@ -1,5 +1,7 @@
 # Concentration Memory Game
 
+See the demo on codepen here https://codepen.io/rob9095/pen/odZyyP
+
 ## Game Overview
 To win the game match all the cards successfully. Hit the reset icon to start a new game.
 
